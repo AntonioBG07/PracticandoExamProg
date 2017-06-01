@@ -12,6 +12,9 @@ import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
 
 public class VentanaFormulario {
 
@@ -33,6 +36,11 @@ public class VentanaFormulario {
 	private JButton btnGuardar;
 	private JButton button;
 	private JButton button_1;
+	private JMenuBar menuBar;
+	private JMenu mnMen;
+	private JMenuItem mntmEscritura;
+	private JMenuItem mntmLectura;
+	private JMenuItem menuItem;
 
 	/**
 	 * Launch the application.
@@ -78,6 +86,12 @@ public class VentanaFormulario {
 		btnGuardar = new JButton("Guardar");
 		button = new JButton("<");
 		button_1 = new JButton(">");
+		menuBar = new JMenuBar();
+		mnMen = new JMenu("Men\u00FA");
+		mntmEscritura = new JMenuItem("Escritura");
+		menuItem = new JMenuItem("");
+		mntmLectura = new JMenuItem("Lectura");
+		frmFormularioAlumno.setJMenuBar(menuBar);
 		
 	}
 	
@@ -99,13 +113,17 @@ public class VentanaFormulario {
 		frmFormularioAlumno.getContentPane().add(btnGuardar);
 		frmFormularioAlumno.getContentPane().add(button);
 		frmFormularioAlumno.getContentPane().add(button_1);
+		menuBar.add(mnMen);
+		mnMen.add(mntmEscritura);
+		mnMen.add(mntmLectura);
+		menuBar.add(menuItem);
 	}
 	
 	private void componentsProperties() {
 		
 		
 		frmFormularioAlumno.setTitle("Formulario Alumno");
-		frmFormularioAlumno.setBounds(100, 100, 474, 282);
+		frmFormularioAlumno.setBounds(100, 100, 458, 314);
 		frmFormularioAlumno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmFormularioAlumno.getContentPane().setLayout(null);
 		
