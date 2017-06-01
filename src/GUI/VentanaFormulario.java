@@ -10,29 +10,28 @@ import javax.swing.JTextField;
 import contenedores.contenedorAlumno;
 import models.Alumno;
 
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JSeparator;
-import javax.swing.JCheckBox;
+
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
 import javax.swing.JMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class VentanaFormulario {
 
 	private JFrame frmFormularioAlumno;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
 	private JLabel lblNombre;
 	private JLabel lblApellidos;
 	private JLabel lblDni;
 	private JLabel lblEdad;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 	private JRadioButton rdbtnNewRadioButton;
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
@@ -48,38 +47,6 @@ public class VentanaFormulario {
 	private JMenuItem mntmLectura;
 	private JMenuItem menuItem;
 	
-	public String getNombre() {
-		return textField.getText();
-	}
-
-	public void setTextField(String a) {
-		this.textField.setText(a);;
-	}
-
-	public String getApellidos() {
-		return textField_1.getText();
-	}
-
-	public void setTextField_1(String a) {
-		this.textField_1.setText(a);;
-	}
-
-	public String getEdad() {
-		return textField_2.getText();
-	}
-
-	public void setTextField_2(String a) {
-		this.textField_2.setText(a);;
-	}
-
-	public String getDni() {
-		return textField_3.getText();
-	}
-
-	public void setTextField_3(String a) {
-		this.textField_3.setText(a);;
-	}
-
 	public String getRdbtnNewRadioButton() {
 		String aux = "";
 		if(rdbtnNewRadioButton.isSelected()){
@@ -139,6 +106,7 @@ public class VentanaFormulario {
 				try {
 					VentanaFormulario window = new VentanaFormulario();
 					window.frmFormularioAlumno.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -157,18 +125,41 @@ public class VentanaFormulario {
 	}
 
 	
-	
 	private void componentsListeners(){
+		//Boton Guardar
 		btnGuardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				System.out.println("Entra en listener");
+				guardarVehiculo();
 				
 				
 			}
 		});
-	}
 	
+		//Modo Lectura
+		mntmLectura.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				ocultarComponentes(false, true);
+			}
+		});
+	
+		//Modo Escritura
+		mntmEscritura.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mntmEscritura.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						ocultarComponentes(true, false);
+					}
+				});
+			}
+		});
+	
+	}
 	
 	private void componentsInitializers(){
 		frmFormularioAlumno = new JFrame();
@@ -192,6 +183,7 @@ public class VentanaFormulario {
 		menuBar = new JMenuBar();
 		mnMen = new JMenu("Men\u00FA");
 		mntmEscritura = new JMenuItem("Escritura");
+		mntmEscritura.setSelected(true);
 		menuItem = new JMenuItem("");
 		mntmLectura = new JMenuItem("Lectura");
 		frmFormularioAlumno.setJMenuBar(menuBar);
@@ -278,4 +270,49 @@ public class VentanaFormulario {
 		button_1.setBounds(291, 197, 52, 36);
 		
 	}
+
+//----------------------------------------------------------------------------
+	//Metodos Controladores
+	
+	private void guardarVehiculo(){
+		System.out.println("Entra en controlador");
+		contenedorAlumno.getContenedorAlumno().aniadirAlumno(new Alumno(textField.getText(),
+				textField_1.getText(), textField_2.getText(), textField_3.getText(), cargarAsignaturas()));
+	}
+	
+	private ArrayList<String> cargarAsignaturas(){
+		ArrayList<String> aux = new ArrayList<String>();
+		
+		aux.add(getRdbtnNewRadioButton());
+		aux.add(getRdbtnNewRadioButton_1());
+		aux.add(getRdbtnNewRadioButton_2());
+		aux.add(getRdbtnNewRadioButton_3());
+		aux.add(getRdbtnNewRadioButton_4());
+		aux.add(getRdbtnNewRadioButton_5());
+		
+	return aux;
+		
+	}
+	
+	private void ocultarComponentes(boolean b, boolean a){
+		System.out.println("Entro aqui");
+		textField_1.setEnabled(b);
+		textField_2.setEnabled(b);
+		textField_3.setEnabled(b);
+		rdbtnNewRadioButton.setEnabled(b);
+		rdbtnNewRadioButton_1.setEnabled(b);
+		rdbtnNewRadioButton_2.setEnabled(b);
+		rdbtnNewRadioButton_3.setEnabled(b);
+		rdbtnNewRadioButton_4.setEnabled(b);
+		rdbtnNewRadioButton_5.setEnabled(b);
+		btnGuardar.setEnabled(b);
+		button.setVisible(a);
+		button_1.setVisible(a);
+		
+	}
+
+
+
+
+
 }

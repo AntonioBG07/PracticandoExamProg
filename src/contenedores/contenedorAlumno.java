@@ -17,13 +17,16 @@ public class contenedorAlumno {
 	}
 	
 	public void aniadirAlumno(Alumno a){
+		System.out.println("Entra en contenedor");
 		alumnos.add(a);
+		System.out.println("Exito");
 		
 	}
 	
 	public void borrarAlumno(Alumno a){
 		alumnos.remove(a);
 	}
+	
 	
 	
 	
