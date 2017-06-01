@@ -6,6 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import contenedores.contenedorAlumno;
+import models.Alumno;
+
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
@@ -15,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VentanaFormulario {
 
@@ -41,6 +47,88 @@ public class VentanaFormulario {
 	private JMenuItem mntmEscritura;
 	private JMenuItem mntmLectura;
 	private JMenuItem menuItem;
+	
+	public String getNombre() {
+		return textField.getText();
+	}
+
+	public void setTextField(String a) {
+		this.textField.setText(a);;
+	}
+
+	public String getApellidos() {
+		return textField_1.getText();
+	}
+
+	public void setTextField_1(String a) {
+		this.textField_1.setText(a);;
+	}
+
+	public String getEdad() {
+		return textField_2.getText();
+	}
+
+	public void setTextField_2(String a) {
+		this.textField_2.setText(a);;
+	}
+
+	public String getDni() {
+		return textField_3.getText();
+	}
+
+	public void setTextField_3(String a) {
+		this.textField_3.setText(a);;
+	}
+
+	public String getRdbtnNewRadioButton() {
+		String aux = "";
+		if(rdbtnNewRadioButton.isSelected()){
+			aux = rdbtnNewRadioButton.getText();
+		}
+		return aux;
+	}
+
+	public String getRdbtnNewRadioButton_1() {
+		String aux = "";
+		if(rdbtnNewRadioButton_1.isSelected()){
+			aux = rdbtnNewRadioButton_1.getText();
+		}
+		return aux;
+	}
+
+	public String getRdbtnNewRadioButton_2() {
+		String aux = "";
+		if(rdbtnNewRadioButton_2.isSelected()){
+			aux = rdbtnNewRadioButton_2.getText();
+		}
+		return aux;
+	}
+
+	public String getRdbtnNewRadioButton_3() {
+		String aux = "";
+		if(rdbtnNewRadioButton_3.isSelected()){
+			aux = rdbtnNewRadioButton_3.getText();
+		}
+		return aux;
+	}
+
+	public String getRdbtnNewRadioButton_4() {
+		String aux = "";
+		if(rdbtnNewRadioButton_4.isSelected()){
+			aux = rdbtnNewRadioButton_4.getText();
+		}
+		return aux;
+	}
+
+	public String getRdbtnNewRadioButton_5() {
+		String aux = "";
+		if(rdbtnNewRadioButton_5.isSelected()){
+			aux = rdbtnNewRadioButton_5.getText();
+		}
+		return aux;
+	}
+
+	
 
 	/**
 	 * Launch the application.
@@ -65,8 +153,23 @@ public class VentanaFormulario {
 		componentsInitializers();
 		componentsAdders();
 		componentsProperties();
+		componentsListeners();
 	}
 
+	
+	
+	private void componentsListeners(){
+		btnGuardar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				
+				
+			}
+		});
+	}
+	
+	
 	private void componentsInitializers(){
 		frmFormularioAlumno = new JFrame();
 		lblNombre = new JLabel("Nombre:");
@@ -120,8 +223,6 @@ public class VentanaFormulario {
 	}
 	
 	private void componentsProperties() {
-		
-		
 		frmFormularioAlumno.setTitle("Formulario Alumno");
 		frmFormularioAlumno.setBounds(100, 100, 458, 314);
 		frmFormularioAlumno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

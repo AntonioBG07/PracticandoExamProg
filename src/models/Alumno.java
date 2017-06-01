@@ -6,12 +6,12 @@ public class Alumno {
 
 	private String alumno;
 	private String apellidos;
-	private int edad;
+	private String edad;
 	private String dni;
 	private ArrayList<String> asignaturas;
 	
 	
-	public Alumno(String alumno, String apellidos, int edad, String dni) {
+	public Alumno(String alumno, String apellidos, String edad, String dni) {
 		this.alumno = alumno;
 		this.apellidos = apellidos;
 		this.edad = edad;
@@ -29,12 +29,12 @@ public class Alumno {
 	}
 
 
-	public int getEdad() {
+	public String getEdad() {
 		return edad;
 	}
 
 
-	public void setEdad(int edad) {
+	public void setEdad(String edad) {
 		this.edad = edad;
 	}
 
