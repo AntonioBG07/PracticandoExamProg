@@ -27,7 +27,11 @@ public class contenedorAlumno {
 		alumnos.remove(a);
 	}
 	
-	
+	public ArrayList<Alumno> obtenerListaAlumnos(){
+		
+		return alumnos;
+		
+	}
 	
 	
 }

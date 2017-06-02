@@ -2,21 +2,19 @@ package models;
 
 public class Asignatura {
 
-	private int[] codAsig;;
-	private String dniAlumno;
+	private int[] codAsig = new int[6];
+	
 	
 	
 	public int[] getCodAsig() {
 		return codAsig;
 	}
-	public String getDniAlumno() {
-		return dniAlumno;
-	}
 	
 	
-	public Asignatura(int[] codAsig, String dniAlumno) {
+	
+	public Asignatura(int[] codAsig) {
 		this.codAsig = codAsig;
-		this.dniAlumno = dniAlumno;
+		
 	}
 	
 	

@@ -8,14 +8,14 @@ public class Alumno {
 	private String apellidos;
 	private String edad;
 	private String dni;
-	private ArrayList<String> asignaturas = new ArrayList<String>();
+	private ArrayList<Integer> asig = new ArrayList<Integer>();
 	
 	
-	public Alumno(String alumno, String apellidos, String edad, String dni, ArrayList<String> as) {
+	public Alumno(String alumno, String apellidos, String edad, String dni, ArrayList<Integer> as) {
 		this.nombre = alumno;
 		this.apellidos = apellidos;
 		this.edad = edad;
-		asignaturas.addAll(as);
+		asig.addAll(as);
 		
 	}
 
@@ -24,16 +24,13 @@ public class Alumno {
 		return nombre;
 	}
 
-
 	public void setAlumno(String alumno) {
 		this.nombre = alumno;
 	}
 
-
 	public String getEdad() {
 		return edad;
 	}
-
 
 	public void setEdad(String edad) {
 		this.edad = edad;
@@ -43,19 +40,17 @@ public class Alumno {
 		return apellidos;
 	}
 
-
-	
 	public String getDni() {
 		return dni;
 	}
 	
-
-
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	
-	
+	public ArrayList<Integer> getAsignaturas() {
+		return asig;
+	}
 	
 	
 	

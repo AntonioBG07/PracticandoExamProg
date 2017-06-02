@@ -24,11 +24,11 @@ import java.util.ArrayList;
 public class VentanaFormulario {
 
 	private JFrame frmFormularioAlumno;
-	private JTextField textField;
 	private JLabel lblNombre;
 	private JLabel lblApellidos;
 	private JLabel lblDni;
 	private JLabel lblEdad;
+	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -46,51 +46,59 @@ public class VentanaFormulario {
 	private JMenuItem mntmEscritura;
 	private JMenuItem mntmLectura;
 	private JMenuItem menuItem;
+	private int indice;
 	
-	public String getRdbtnNewRadioButton() {
-		String aux = "";
+	
+	public int getRdbtnNewRadioButton() {
+		int aux = 0;
+		
 		if(rdbtnNewRadioButton.isSelected()){
-			aux = rdbtnNewRadioButton.getText();
+			aux = 1;
 		}
 		return aux;
 	}
 
-	public String getRdbtnNewRadioButton_1() {
-		String aux = "";
+	public int getRdbtnNewRadioButton_1() {
+		int aux = 0;
+		
 		if(rdbtnNewRadioButton_1.isSelected()){
-			aux = rdbtnNewRadioButton_1.getText();
+			aux = 1;
 		}
 		return aux;
 	}
 
-	public String getRdbtnNewRadioButton_2() {
-		String aux = "";
+	public int getRdbtnNewRadioButton_2() {
+		int aux = 0;
+		
 		if(rdbtnNewRadioButton_2.isSelected()){
-			aux = rdbtnNewRadioButton_2.getText();
+			aux = 1;
 		}
 		return aux;
 	}
 
-	public String getRdbtnNewRadioButton_3() {
-		String aux = "";
+	public int getRdbtnNewRadioButton_3() {
+		int aux = 0;
+		
 		if(rdbtnNewRadioButton_3.isSelected()){
-			aux = rdbtnNewRadioButton_3.getText();
+			aux = 1;
 		}
 		return aux;
 	}
 
-	public String getRdbtnNewRadioButton_4() {
-		String aux = "";
+	public int getRdbtnNewRadioButton_4() {
+		int aux = 0;
+		
 		if(rdbtnNewRadioButton_4.isSelected()){
-			aux = rdbtnNewRadioButton_4.getText();
+			aux = 1;
 		}
 		return aux;
 	}
 
-	public String getRdbtnNewRadioButton_5() {
-		String aux = "";
+	public int getRdbtnNewRadioButton_5() {
+		int aux = 0;
+		
 		if(rdbtnNewRadioButton_5.isSelected()){
-			aux = rdbtnNewRadioButton_5.getText();
+			aux = 1;
 		}
 		return aux;
 	}
@@ -144,7 +152,7 @@ public class VentanaFormulario {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				ocultarComponentes(false, true);
-				
+				cargarAlumnos(indice);
 			}
 		});
 	
@@ -278,8 +286,9 @@ public class VentanaFormulario {
 				textField_1.getText(), textField_2.getText(), textField_3.getText(), cargarAsignaturas()));
 	}
 	
-	private ArrayList<String> cargarAsignaturas(){
-		ArrayList<String> aux = new ArrayList<String>();
+	private ArrayList<Integer> cargarAsignaturas(){
+		ArrayList<Integer> aux = new ArrayList<Integer>();
+		
 		
 		aux.add(getRdbtnNewRadioButton());
 		aux.add(getRdbtnNewRadioButton_1());
@@ -310,8 +319,44 @@ public class VentanaFormulario {
 		
 	}
 
+	private void cargarAlumnos(int ind){
+		
+		ArrayList<Alumno> prov = new ArrayList<Alumno>(); 
+		prov.addAll(contenedorAlumno.getContenedorAlumno().obtenerListaAlumnos());
+		Alumno Estudiante;
+		
+		Estudiante = prov.get(ind);
+		
+		datosAlumnos(Estudiante);
+		//asignaturasAlumnos(Estudiante); //falta insertar las asignaturas de cada alumno
+		
+	}
+	
+	private void datosAlumnos(Alumno Estud){
+		textField.setText(Estud.getAlumno());
+		textField_1.setText(Estud.getApellidos());
+		textField_2.setText(Estud.getEdad());
+		textField_3.setText(Estud.getDni());
+	}
 
-
-
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
