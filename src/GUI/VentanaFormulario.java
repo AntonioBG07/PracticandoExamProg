@@ -139,23 +139,20 @@ public class VentanaFormulario {
 		});
 	
 		//Modo Lectura
+		
 		mntmLectura.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				ocultarComponentes(false, true);
+				
 			}
 		});
 	
 		//Modo Escritura
 		mntmEscritura.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				mntmEscritura.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						ocultarComponentes(true, false);
-					}
-				});
+			public void mousePressed(MouseEvent e) {
+				ocultarComponentes(true, false);
 			}
 		});
 	
@@ -183,6 +180,7 @@ public class VentanaFormulario {
 		menuBar = new JMenuBar();
 		mnMen = new JMenu("Men\u00FA");
 		mntmEscritura = new JMenuItem("Escritura");
+		
 		mntmEscritura.setSelected(true);
 		menuItem = new JMenuItem("");
 		mntmLectura = new JMenuItem("Lectura");
@@ -296,6 +294,7 @@ public class VentanaFormulario {
 	
 	private void ocultarComponentes(boolean b, boolean a){
 		System.out.println("Entro aqui");
+		textField.setEnabled(b);
 		textField_1.setEnabled(b);
 		textField_2.setEnabled(b);
 		textField_3.setEnabled(b);
