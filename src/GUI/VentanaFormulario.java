@@ -15,7 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
+import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -115,6 +115,7 @@ public class VentanaFormulario {
 					VentanaFormulario window = new VentanaFormulario();
 					window.frmFormularioAlumno.setVisible(true);
 					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -139,8 +140,14 @@ public class VentanaFormulario {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				System.out.println("Entra en listener");
-				guardarVehiculo();
+				
+				try{
+					guardarAlumno();
+					resetearValores();
+					JOptionPane.showMessageDialog(null, "Guardado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null, "Falta algún dato por rellenar", "Error", JOptionPane.ERROR_MESSAGE);
+				};
 				
 				
 			}
@@ -151,8 +158,13 @@ public class VentanaFormulario {
 		mntmLectura.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				if(contenedorAlumno.getContenedorAlumno().obtenerListaAlumnos().isEmpty()){
+					JOptionPane.showMessageDialog(null, "No hay Alumnos agregados aún", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				else{
 				ocultarComponentes(false, true);
 				cargarAlumnos(indice);
+				}
 			}
 		});
 	
@@ -164,6 +176,38 @@ public class VentanaFormulario {
 			}
 		});
 	
+		//Boton atrás alumno
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				if(indice == 0){
+					JOptionPane.showMessageDialog(null, "Ya está en la primera posición", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				else{
+					indice -=1;
+					resetearValores();
+					cargarAlumnos(indice);
+				}
+			}
+			
+		});
+		
+		//Boton hacia delante Alumno
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(contenedorAlumno.getContenedorAlumno().obtenerListaAlumnos().size() == indice+1){
+					JOptionPane.showMessageDialog(null, "Ya está en la última posición", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				else{
+					indice += 1;
+					resetearValores();
+					cargarAlumnos(indice);
+				}
+			}
+		});
+		
+		
 	}
 	
 	private void componentsInitializers(){
@@ -272,20 +316,29 @@ public class VentanaFormulario {
 		btnGuardar.setBounds(172, 197, 109, 36);
 		
 		button.setBounds(110, 197, 52, 36);
-		
 		button_1.setBounds(291, 197, 52, 36);
+		
+		button.setVisible(false);
+		button_1.setVisible(false);
 		
 	}
 
 //----------------------------------------------------------------------------
 	//Metodos Controladores
 	
-	private void guardarVehiculo(){
-		System.out.println("Entra en controlador");
+	/**
+	 * Coge los datos de los campos y crea un objeto tipo alumno con ellos
+	 * @throws Exception
+	 */
+	private void guardarAlumno() throws Exception{
+		
 		contenedorAlumno.getContenedorAlumno().aniadirAlumno(new Alumno(textField.getText(),
 				textField_1.getText(), textField_2.getText(), textField_3.getText(), cargarAsignaturas()));
 	}
-	
+	/**
+	 * Guarda con 1 o 0 qué asignaturas ha cliqueado el usuario
+	 * @return
+	 */
 	private ArrayList<Integer> cargarAsignaturas(){
 		ArrayList<Integer> aux = new ArrayList<Integer>();
 		
@@ -300,7 +353,11 @@ public class VentanaFormulario {
 	return aux;
 		
 	}
-	
+	/**
+	 * Oculta o deshabilita los componentes de la ventana para el modo lectura o escritura
+	 * @param b
+	 * @param a
+	 */
 	private void ocultarComponentes(boolean b, boolean a){
 		System.out.println("Entro aqui");
 		textField.setEnabled(b);
@@ -313,34 +370,79 @@ public class VentanaFormulario {
 		rdbtnNewRadioButton_3.setEnabled(b);
 		rdbtnNewRadioButton_4.setEnabled(b);
 		rdbtnNewRadioButton_5.setEnabled(b);
-		btnGuardar.setEnabled(b);
+		btnGuardar.setVisible(b);
 		button.setVisible(a);
 		button_1.setVisible(a);
 		
 	}
-
+	/**
+	 * Carga los datos de los alumnos en la ventana
+	 * @param ind
+	 */
 	private void cargarAlumnos(int ind){
 		
-		ArrayList<Alumno> prov = new ArrayList<Alumno>(); 
-		prov.addAll(contenedorAlumno.getContenedorAlumno().obtenerListaAlumnos());
 		Alumno Estudiante;
 		
-		Estudiante = prov.get(ind);
+		Estudiante = contenedorAlumno.getContenedorAlumno().obtenerListaAlumnos().get(ind);
 		
 		datosAlumnos(Estudiante);
-		//asignaturasAlumnos(Estudiante); //falta insertar las asignaturas de cada alumno
+		asignaturasAlumnos(Estudiante);
 		
 	}
-	
+	/**
+	 * Carga los datos personales del alumno
+	 * @param Estud el estudiante correspondiente
+	 */
 	private void datosAlumnos(Alumno Estud){
 		textField.setText(Estud.getAlumno());
 		textField_1.setText(Estud.getApellidos());
 		textField_2.setText(Estud.getEdad());
-		textField_3.setText(Estud.getDni());
+		textField_3.setText(Estud.getDni()); 
 	}
-
-	
-
+	/**
+	 * Carga las asignaturas de ese alumno
+	 * @param Estud el alumno correspondiente
+	 */
+	private void asignaturasAlumnos(Alumno Estud){
+		ArrayList<Integer> alm = new ArrayList<Integer>();
+		
+		alm.addAll(Estud.getAsignaturas());
+		
+		if(alm.get(0) == 1){
+			rdbtnNewRadioButton.setSelected(true);
+		}
+		if(alm.get(1) == 1){
+			rdbtnNewRadioButton_1.setSelected(true);
+		}
+		if(alm.get(2) == 1){
+			rdbtnNewRadioButton_2.setSelected(true);
+		}
+		if(alm.get(3) == 1){
+			rdbtnNewRadioButton_3.setSelected(true);
+		}
+		if(alm.get(4) == 1){
+			rdbtnNewRadioButton_4.setSelected(true);
+		}
+		if(alm.get(5) == 1){
+			rdbtnNewRadioButton_5.setSelected(true);
+		}
+	}
+	/**
+	 * Pone todos los valores de la ventana vacíos y sin seleccionar par apoder seguir usando la ventana
+	 */
+	private void resetearValores(){
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+		textField_3.setText("");
+		
+		rdbtnNewRadioButton.setSelected(false);
+		rdbtnNewRadioButton_1.setSelected(false);
+		rdbtnNewRadioButton_2.setSelected(false);
+		rdbtnNewRadioButton_3.setSelected(false);
+		rdbtnNewRadioButton_4.setSelected(false);
+		rdbtnNewRadioButton_5.setSelected(false);
+	}
 }
 
 

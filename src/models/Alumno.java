@@ -11,10 +11,11 @@ public class Alumno {
 	private ArrayList<Integer> asig = new ArrayList<Integer>();
 	
 	
-	public Alumno(String alumno, String apellidos, String edad, String dni, ArrayList<Integer> as) {
-		this.nombre = alumno;
-		this.apellidos = apellidos;
-		this.edad = edad;
+	public Alumno(String alumno, String apellidos, String edad, String dni, ArrayList<Integer> as) throws Exception {
+		setAlumno(alumno);
+		setApellidos(apellidos);
+		setEdad(edad);
+		setDni(dni);
 		asig.addAll(as);
 		
 	}
@@ -24,7 +25,10 @@ public class Alumno {
 		return nombre;
 	}
 
-	public void setAlumno(String alumno) {
+	public void setAlumno(String alumno) throws Exception {
+		if(alumno.equals("")){
+			throw new Exception("Vacío");
+		}
 		this.nombre = alumno;
 	}
 
@@ -32,7 +36,10 @@ public class Alumno {
 		return edad;
 	}
 
-	public void setEdad(String edad) {
+	public void setEdad(String edad) throws Exception {
+		if(edad.equals("")){
+			throw new Exception("Vacío");
+		}
 		this.edad = edad;
 	}
 
@@ -40,17 +47,28 @@ public class Alumno {
 		return apellidos;
 	}
 
+	public void setApellidos(String apellidos) throws Exception {
+		if(apellidos.equals("")){
+			throw new Exception("Vacío");
+		}
+		this.apellidos = apellidos;
+	}
+	
 	public String getDni() {
 		return dni;
 	}
 	
-	public void setDni(String dni) {
+	public void setDni(String dni) throws Exception {
+		if(dni.equals("")){
+			throw new Exception("Vacío");
+		}
 		this.dni = dni;
 	}
 	
 	public ArrayList<Integer> getAsignaturas() {
 		return asig;
 	}
+	
 	
 	
 	
